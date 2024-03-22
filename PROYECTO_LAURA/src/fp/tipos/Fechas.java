@@ -2,6 +2,8 @@ package fp.tipos;
 
  import java.util.List;  
  import java.util.ArrayList;
+ import us.lsi.tools.Preconditions;
+
 
 
 public record Fechas(Integer año,
@@ -144,5 +146,31 @@ public record Fechas(Integer año,
 		String nombreMes = this.nombreMes();
 		return nombreDias + ", " + this.dia() + " de " + nombreMes + " de " + this.año();
 	}
+
+	
+	
+//	DEFENSA
+
+	public static int[] restarDiasFechaDada(Fechas fecha, int numDias) {
+        Preconditions.checkArgument(numDias >= 0 && numDias <= 999, "El numero de dias debe tener hasta 3 digitos");
+
+        int dia = fecha.dia();
+        int mes = fecha.mes();
+        int año = fecha.año();
+
+        for (int i = 0; i < numDias; i++) {
+            dia--;
+            if (dia == 0) {
+                mes--;
+                if (mes == 0) {
+                    mes = 12;
+                    año--;
+                }
+                dia = diasEnMes(año, mes);
+            }
+        }
+
+        return new int[]{dia, mes, año};
+    }
 
 }

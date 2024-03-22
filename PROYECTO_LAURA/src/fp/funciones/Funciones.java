@@ -88,4 +88,51 @@ public class Funciones {
 		return masLarga;
 	}
 
+	//EJERCICIO A DEFENSA
+	
+	 public static Double P2(Integer n, Integer k, Integer i) {
+	        Preconditions.checkArgument(n >= k, String.format("El valor n (%d) debe ser mayor o igual que k (%d)", n, k));
+	        Preconditions.checkArgument(i < k + 1, String.format("El valor i (%d) debe ser menor que k+1 (%d)", i, k + 1));
+
+	        int start = k - 2;
+	        double producto = 1.0;
+
+	        for (int j = start; j >= 1; j--) {
+	            producto *= (n - (i + j));
+	        }
+
+	        return producto;
+	    }
+	
+	
+	//EJERCICIO B DEFENSA
+	 public static Double C2(Integer n, Integer k) {
+	        Preconditions.checkArgument(n > k, String.format("El valor n (%d) debe ser mayor que k (%d)", n, k));
+
+	        double numerador = factorial(n);
+	        double denominador = factorial(k + 1) * factorial(n - k - 1);
+
+	        return numerador / denominador;
+	    }
+	
+	
+	//EJERCICIO C DEFENSA
+	 public static Double S2(Integer n, Integer k) {
+	        Preconditions.checkArgument(n > k, String.format("El valor n (%d) debe ser mayor que k (%d)", n, k));
+
+         double resultado = 0.0;
+         double factorial_k = factorial(k);
+         
+         for (int i = 0; i <= k; i++) {
+             double primero = Math.pow(-1, i);
+             double segundo = numeroCombinatorio(k, i);
+             double tercero = Math.pow((k - i), n);
+             resultado += primero * segundo * tercero;
+         }
+
+         resultado *= (factorial_k / factorial(k + 2));
+
+         return resultado;
+     }
+	 
 }

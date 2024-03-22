@@ -12,6 +12,9 @@ public class TestFunciones {
         testCalculoNumeroS();
         testDiferencias();
         testCadenaMasLarga();
+        testP2();
+        testC2();
+        testS2();
     }
 
     // TEST EJERCICIO 1
@@ -39,7 +42,7 @@ public class TestFunciones {
 
     // TEST EJERCICIO 3
     public static void testCalculoNumeroS() {
-        int n = 5; // VALOR N
+        int n = 10; // VALOR N
         int k = 7; // VALOR K
         try {
             double resultado = Funciones.calculoNumeroS(n, k);
@@ -69,4 +72,52 @@ public class TestFunciones {
         String masLarga = Funciones.cadenaMasLarga(caracteres);
         System.out.println("La cadena mas larga es: " + masLarga);
     }
+
+ 
+//DEFENSA
+ // TEST EJERCICIO A
+    public static void testP2() {
+        int n = 10;
+        int k = 5;
+        int i = 2;
+
+        try {
+            double resultado = Funciones.P2(n, k, i);
+            System.out.println("El resultado de P2 con n=" + n + ", k=" + k + ", i=" + i + " es: " + resultado);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error en testP2: " + e.getMessage());
+        }
+    }
+
+
+    // TEST EJERCICIO B
+    public static void testC2() {
+        int n = 9;
+        int k = 6;
+
+        try {
+            double resultado = Funciones.C2(n, k);
+            System.out.println("El resultado de C2 con n=" + n + ", k=" + k + " es: " + resultado);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error en testC2: " + e.getMessage());
+        }
+    } 
+
+
+    // TEST EJERCICIO C
+    public static void testS2() {
+        int n = 5;
+        int k = 2;
+
+        try {
+            double resultado = Funciones.S2(n, k);
+            System.out.println("El resultado de S2 con n=" + n + ", k=" + k + " es: " + resultado);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error en testS2: " + e.getMessage());
+        }
+    }
+
 }
+    
+  
+

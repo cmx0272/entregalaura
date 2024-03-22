@@ -1,5 +1,7 @@
 package fp.tipos.test;
 
+import java.util.Arrays;
+
 import fp.tipos.Fechas;
 
 public class TestFechas {
@@ -36,5 +38,15 @@ public class TestFechas {
         // AÑO BISIESTO
         boolean esBisiesto = Fechas.esAñoBisiesto(2024);
         System.out.println("2024 es bisiesto: " + esBisiesto);
-    }
+        
+        //DEFENSA RESTAR DIAS FECHA DAD
+        Fechas fecha = Fechas.of(2024, 3, 22);
+        int numDias = 10;
+
+        int[] resultado = Fechas.restarDiasFechaDada(fecha, numDias);
+            System.out.println("Fecha resultante de restar " + numDias + " dias a " + fecha + " es: " + Arrays.toString(resultado));
+        }
+
 }
+    
+
