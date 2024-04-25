@@ -3,6 +3,7 @@
 	<name>PROYECTO_LAURA</name>
 	<comment></comment>
 	<projects>
+		<project>MToro</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
