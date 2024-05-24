@@ -69,41 +69,47 @@ public class Questions {
 		return banco.prestamos().todos().stream()
                 .collect(Collectors.groupingBy(p -> new Info2(p.fechaComienzo().getMonthValue(), p.fechaComienzo().getYear()), Collectors.summingInt(p -> 1)));
 	}
+	
+	public static Persona personaMasAntiguaEnEmpresa(Banco banco) {
+	    return banco.empleados().todos().stream()
+	            .map(Empleado::persona)
+	            .min((p1, p2) -> {
+	                LocalDate fechaContrato1 = banco.empleados().empleadoDni(p1.dni()).get().fechaDeContrato();
+	                LocalDate fechaContrato2 = banco.empleados().empleadoDni(p2.dni()).get().fechaDeContrato();
+	                return fechaContrato1.compareTo(fechaContrato2);
+	            })
+	            .orElse(null);
+	}
+	
+	public static void main(String[] args) {
+	    // Crear una instancia de Banco y agregar datos de prueba
+	    Banco banco = Banco.of();
+	    
+	    // 1. 
+	    String clienteDni = "64482505G"; 
+	    Set<LocalDate> vencimientos = Questions.vencimientoDePrestamosDeCliente(banco, clienteDni);
+	    System.out.println("Vencimiento de los préstamos del cliente " + clienteDni + ": " + vencimientos);
 
+	    // 2.
+	    Persona personaConMasPrestamos = Questions.clienteConMasPrestamos(banco);
+	    System.out.println("Cliente con más préstamos: " + (personaConMasPrestamos != null ? personaConMasPrestamos : "No hay datos"));
 
+	    // 3. 
+	    String empleadoDni = "52184462S"; 
+	    Double cantidadPrestamosEmpleado = Questions.cantidadPrestamosPmpledado(banco, empleadoDni);
+	    System.out.println("Cantidad total de los préstamos gestionados por el empleado " + empleadoDni + ": " + cantidadPrestamosEmpleado);
 
+	    // 4. 
+	    Persona personaMasAntigua = Questions.personaMasAntiguaEnEmpresa(banco);
+	    System.out.println("Persona más antigua en la empresa: " + (personaMasAntigua != null ? personaMasAntigua : "No hay datos"));
 
-public static void main(String[] args) {
-    // Crear una instancia de Banco y agregar datos de prueba
-	Banco banco = Banco.of();
+	    // 5.
+	    Questions.Info interesInfo = Questions.rangoDeIntereseDePrestamos(banco);
+	    System.out.println("Interés mínimo, máximo y medio de los préstamos: " + interesInfo);
 
-    // 1.
-    String clienteDni = "64482505G"; 
-    Set<LocalDate> vencimientos = Questions.vencimientoDePrestamosDeCliente(banco, clienteDni);
-    System.out.println("Vencimiento de los préstamos del cliente " + clienteDni + ": " + vencimientos);
-
-    // 2. 
-    Persona personaConMasPrestamos = Questions.clienteConMasPrestamos(banco);
-    System.out.println("Cliente con más préstamos: " + (personaConMasPrestamos != null ? personaConMasPrestamos : "No hay datos"));
-
-    // 3.
-    String empleadoDni = "52184462S";
-    Double cantidadPrestamosEmpleado = Questions.cantidadPrestamosPmpledado(banco, empleadoDni);
-    System.out.println("Cantidad total de los préstamos gestionados por el empleado " + empleadoDni + ": " + cantidadPrestamosEmpleado);
-
-    // 4. 
-    Persona empleadoMasLongevo = Questions.empleadoMasLongevo(banco);
-    System.out.println("Empleado más longevo: " + (empleadoMasLongevo != null ? empleadoMasLongevo : "No hay datos"));
-
-    // 5.
-    Questions.Info interesInfo = Questions.rangoDeIntereseDePrestamos(banco);
-    System.out.println("Interés mínimo, máximo y medio de los préstamos: " + interesInfo);
-
-    // 6.
-    Map<Questions.Info2, Integer> prestamosPorMesAño = Questions.numPrestamosPorMesAño(banco);
-    System.out.println("Número de préstamos por mes y año: " + prestamosPorMesAño);
-}
-
-
+	    // 6. 
+	    Map<Questions.Info2, Integer> prestamosPorMesAño = Questions.numPrestamosPorMesAño(banco);
+	    System.out.println("Número de préstamos por mes y año: " + prestamosPorMesAño);
+	}
 
 }
